@@ -76,13 +76,15 @@ CC    := gcc
 CXX   := g++
 STRIP := strip
 
-CSTD         ?= -std=c11
-CFLAGS       ?= -MMD -fno-strict-aliasing -I.
-CXXSTD       ?= -std=c++17
-CXXFLAGS     ?= -MMD
-WARNINGS     ?= -Wall -Wextra -Wpedantic -Wshadow
-LDFLAGS      ?= -lm
-RECOMP_FLAGS ?=
+EXTRA_FLAGS ?=
+
+CSTD         += -std=c11
+CFLAGS       += $(EXTRA_FLAGS) -MMD -fno-strict-aliasing -I.
+CXXSTD       += -std=c++17
+CXXFLAGS     += $(EXTRA_FLAGS) -MMD 
+WARNINGS     += -Wall -Wextra -Wpedantic -Wshadow
+LDFLAGS      += $(EXTRA_FLAGS) -lm
+RECOMP_FLAGS +=
 
 ifneq ($(WERROR),0)
   WARNINGS += -Werror

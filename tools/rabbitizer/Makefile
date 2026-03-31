@@ -5,6 +5,8 @@ ASAN            ?= 0
 EXPERIMENTAL    ?= 0
 SANITY_CHECKS   ?= 1
 
+EXTRA_FLAGS ?=
+
 CC              := clang
 CXX             := clang++
 AR              := ar
@@ -12,12 +14,12 @@ IINC            := -I include
 IINC_XX         := -I include -I cplusplus/include
 CSTD            := -std=c11
 CXXSTD          := -std=c++17
-CFLAGS          := -fPIC
-CXXFLAGS        := -fPIC
-LDFLAGS         := -Lbuild -lrabbitizer
-LDXXFLAGS       := -Lbuild -lrabbitizerpp
-WARNINGS        := -Wall -Wextra -Wpedantic
-# WARNINGS        := -Wall -Wextra -Wpedantic -Wpadded
+CFLAGS          := $(EXTRA_FLAGS) -fPIC
+CXXFLAGS        := $(EXTRA_FLAGS) -fPIC
+LDFLAGS         := $(EXTRA_FLAGS) -Lbuild -lrabbitizer
+LDXXFLAGS       := $(EXTRA_FLAGS) -Lbuild -lrabbitizerpp
+WARNINGS        := $(EXTRA_FLAGS) -Wall -Wextra -Wpedantic
+# WARNINGS      := -Wall -Wextra -Wpedantic -Wpadded
 WARNINGS        += -Werror=vla -Werror=switch -Werror=implicit-fallthrough -Werror=unused-function -Werror=unused-parameter -Werror=shadow
 WARNINGS_C      := -Werror=implicit-function-declaration -Werror=incompatible-pointer-types
 WARNINGS_CXX    :=
