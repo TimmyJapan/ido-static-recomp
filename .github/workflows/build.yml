@@ -127,7 +127,7 @@ jobs:
           install: |-
             gcc
             mingw-w64-i686-gcc
-            mingw-w64-i686-libgcc
+            mingw-w64-i686-gcc-libs
             msys2-devel
             make
             binutils
