@@ -22,6 +22,10 @@ jobs:
             runner: windows-latest
           },
           {
+            name: windows-x86,
+            runner: windows-latest
+          },
+          {
             name: linux-arm,
             runner: ubuntu-22.04
           }
@@ -111,6 +115,29 @@ jobs:
       - name: Run the build script (Windows)
         shell: cmd
         if: matrix.os.name == 'windows'
+        run: |-
+          set MSYSTEM=MSYS
+          msys2 -c 'make --jobs RELEASE=1 VERSION=${{ matrix.ido }}'
+
+      # Windows x86
+      - name: Install dependencies (Windows)
+        uses: msys2/setup-msys2@v2
+        if: matrix.os.name == 'windows-x86'
+        with:
+          install: |-
+            gcc
+            mingw-w64-i686-gcc
+            make
+
+      - name: Build recomp binary (Windows)
+        shell: msys2 {0}
+        if: matrix.os.name == 'windows-x86'
+        run: |-
+          make --jobs RELEASE=1 setup
+
+      - name: Run the build script (Windows)
+        shell: cmd
+        if: matrix.os.name == 'windows-x86'
         run: |-
           set MSYSTEM=MSYS
           msys2 -c 'make --jobs RELEASE=1 VERSION=${{ matrix.ido }}'
