@@ -146,6 +146,13 @@ jobs:
           set MSYSTEM=MSYS
           msys2 -c 'make --jobs RELEASE=1 VERSION=${{ matrix.ido }} EXTRA_FLAGS="-m32"'
           
+      - name: Debug Windows x86 build
+        shell: msys2 {0}
+        if: matrix.os.name == 'windows-x86'
+        run: |
+        ls -la ido/5.3/usr/bin/cc 2>&1 || echo "IDO binary not found"
+        ./build/recomp.elf ido/5.3/usr/bin/cc 2>&1 | head -50 || true
+        
       # Archive
       - name: Create release archive
         shell: bash
