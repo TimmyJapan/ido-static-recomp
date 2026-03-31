@@ -127,9 +127,9 @@ jobs:
           install: |-
             gcc
             mingw-w64-i686-gcc
+            mingw-w64-i686-libgcc
             msys2-devel
             make
-            gcc
             binutils
 
       - name: Build recomp binary (Windows x86)
