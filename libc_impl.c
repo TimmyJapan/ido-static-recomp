@@ -3066,11 +3066,12 @@ uint32_t wrapper_regex(uint8_t* mem, uint32_t re_addr, uint32_t subject_addr, ui
 void wrapper___assert(uint8_t* mem, uint32_t assertion_addr, uint32_t file_addr, int line) {
     STRING(assertion)
     STRING(file)
-	//fix here if you got __assert error
     #ifdef __FreeBSD__
     __assert(assertion, file, line, NULL);
-    #else
+	#elif defined(__MSYS__) || defined(__MINGW32__)
     __assert(assertion, line, file);
+	#else
+	__assert(assertion, file, line);
     #endif
 }
 
