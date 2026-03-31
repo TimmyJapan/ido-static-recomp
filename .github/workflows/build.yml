@@ -127,20 +127,23 @@ jobs:
           install: |-
             gcc
             mingw-w64-i686-gcc
+            msys2-devel
             make
+            gcc
+            binutils
 
       - name: Build recomp binary (Windows x86)
         shell: msys2 {0}
         if: matrix.os.name == 'windows-x86'
         run: |-
-          make --jobs RELEASE=1 setup CC=i686-w64-mingw32-gcc
+          make --jobs RELEASE=1 setup CFLAGS="-m32" LDFLAGS="-m32" CXXFLAGS="-m32" LDXXFLAGS="-m32"
 
       - name: Run the build script (Windows x86)
         shell: cmd
         if: matrix.os.name == 'windows-x86'
         run: |-
           set MSYSTEM=MSYS
-          msys2 -c 'make --jobs RELEASE=1 VERSION=${{ matrix.ido }}' CC=i686-w64-mingw32-gcc
+          msys2 -c 'make --jobs RELEASE=1 VERSION=${{ matrix.ido }}' CFLAGS="-m32" LDFLAGS="-m32" CXXFLAGS="-m32" LDXXFLAGS="-m32"
 
       # Archive
       - name: Create release archive
