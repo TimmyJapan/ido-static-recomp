@@ -120,7 +120,7 @@ jobs:
           msys2 -c 'make --jobs RELEASE=1 VERSION=${{ matrix.ido }}'
 
       # Windows x86
-      - name: Install dependencies (Windows x86)
+
       - name: Install dependencies (Windows x86)
         uses: msys2/setup-msys2@v2
         if: matrix.os.name == 'windows-x86'
