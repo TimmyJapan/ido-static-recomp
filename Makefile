@@ -108,9 +108,9 @@ ifeq ($(DETECTED_OS),freebsd)
   LDFLAGS     += -lexecinfo
 endif
 
-ifeq ($(DETECTED_OS),windows)
-  CXXFLAGS     += -static
-endif
+# ifeq ($(DETECTED_OS),windows)
+#   CXXFLAGS     += -static
+# endif
 
 # -- Build Directories
 # designed to work with Make 3.81 (macOS/last GPL-2 version)
